@@ -11,7 +11,7 @@ services:
       - "estation"
       - "postgis"
     ports:
-      - "8080:8080"
+      - "8085:8085"
     environment:
       - "DEFAULT_DB_HOST=db_default"
       - "DEFAULT_DB_PORT=5432"
