@@ -5,8 +5,8 @@ services:
     image: "readmost/estation:latest"
     restart: "always"
     expose:
-      - "8080"
-    command: [ "python3", "manage.py","runserver", "[::]:8080" ]
+      - "8085"
+    command: [ "python3", "manage.py","runserver", "[::]:8085" ]
     networks:
       - "estation"
       - "postgis"
@@ -21,13 +21,12 @@ services:
       - "DEFAULT_REDIS_IP=redis"
     labels:
       - "traefik.enable=true"
-      - "traefik.port=8080"
+      - "traefik.port=8085"
       - "traefik.backend=app"
       - "traefik.frontend.rule=Host:estation.kz"
       - "traefik.docker.network=estation"
       - "traefik.frontend.passHostHeader=true"
-    volumes:
-      - "media_estation:/usr/src/app/media"
+
 
 
 networks:
