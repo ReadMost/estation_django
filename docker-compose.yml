@@ -1,0 +1,39 @@
+version: "3"
+services:
+
+  app:
+    image: "readmost/estation:latest"
+    restart: "always"
+    expose:
+      - "8080"
+    command: [ "python3", "manage.py","runserver", "[::]:8080" ]
+    networks:
+      - "estation"
+      - "postgis"
+    ports:
+      - "8080:8080"
+    environment:
+      - "DEFAULT_DB_HOST=db_default"
+      - "DEFAULT_DB_PORT=5432"
+      - "DEFAULT_DB_NAME=estation"
+      - "DEFAULT_DB_USER=docker"
+      - "DEFAULT_DB_PASSWORD=docker"
+      - "DEFAULT_REDIS_IP=redis"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.backend=app"
+      - "traefik.frontend.rule=Host:estation.kz"
+      - "traefik.docker.network=estation"
+      - "traefik.frontend.passHostHeader=true"
+    volumes:
+      - "media_estation:/usr/src/app/media"
+
+
+networks:
+  estation:
+    external: true
+  postgis:
+    external: true
+
+
