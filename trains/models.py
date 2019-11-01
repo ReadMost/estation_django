@@ -85,6 +85,7 @@ class Ticket(models.Model):
 	date = models.DateTimeField(null=False)
 	from_station = models.ForeignKey(Station, on_delete=models.CASCADE, related_name="from_station")
 	to_station = models.ForeignKey(Station, on_delete=models.CASCADE, related_name="to_station")
+	seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.from_station + " -> " + self.to_station
